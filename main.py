@@ -3,7 +3,6 @@ import sys
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from functions.get_files_info import get_files_info
 
 def main():
     load_dotenv()
@@ -13,8 +12,6 @@ def main():
         sys.exit(1)
     
     user_prompt = " ".join(args)
-    print("Current Working Directory:", os.getcwd())
-    print(get_files_info("calculator", "../"))
 
     messages = [types.Content(role="user", parts=[types.Part(text=user_prompt)])]
     print("Hello from ai-agent!")
@@ -24,7 +21,7 @@ def main():
 
     if any([arg == '-v' or arg== '--verbose' for arg in args]):
         generate_content(client, messages, verbose=True)
-    #generate_content(client, messages)
+    generate_content(client, messages)
 
 def generate_content(client, messages, verbose=False):
     response = client.models.generate_content(
