@@ -18,7 +18,7 @@ def main():
     
     api_key = os.getenv("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
-
+    
     if any([arg == '-v' or arg== '--verbose' for arg in args]):
         generate_content(client, messages, verbose=True)
     generate_content(client, messages)
