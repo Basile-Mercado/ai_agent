@@ -13,3 +13,54 @@ schema_get_files_info = types.FunctionDeclaration(
         },
     ),
 )
+
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Retrieves the content of a specified file within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file relative to the working directory.",
+            ),
+        },
+    ),
+)
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes content to a specified file within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file relative to the working directory.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write to the file.",
+            ),
+        },
+    ),
+)
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Executes a Python file within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the Python file relative to the working directory.",
+            ),
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                items=types.Schema(type=types.Type.STRING),
+                description="A list of arguments to pass to the Python file during execution.",
+            ),
+        },
+    ),
+)

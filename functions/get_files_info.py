@@ -17,7 +17,7 @@ def get_files_info(working_directory, directory="."):
     except Exception as e:
         return f'Error: {str(e)}'
     
-def get_files_content(working_directory, file_path):
+def get_file_content(working_directory, file_path):
     try:
         full_path = os.path.join(working_directory, file_path)
         if working_directory in os.path.abspath(full_path):

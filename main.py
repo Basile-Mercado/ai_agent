@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from var import system_prompt
-from functions.function_declaration import schema_get_files_info
+from functions.function_declaration import *
 
 def main():
     load_dotenv()
@@ -29,6 +29,9 @@ def generate_content(client, messages, verbose=False):
     available_functions = types.Tool(
     function_declarations=[
         schema_get_files_info,
+        schema_get_file_content,
+        schema_write_file,
+        schema_run_python_file,
         ]
     )    
     response = client.models.generate_content(
