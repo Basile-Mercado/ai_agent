@@ -4,8 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from functions.call_function import call_function
-from functions.config import MAX_ITERATIONS
-from var import system_prompt
+from functions.config import MAX_ITERATIONS, SYSTEM_PROMPT
 from functions.function_declaration import *
 
 def main():
@@ -53,7 +52,7 @@ def generate_content(client, messages, verbose=False):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
-        config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt),
+        config=types.GenerateContentConfig(tools=[available_functions], system_instruction=SYSTEM_PROMPT),
     )
     
     if verbose:
