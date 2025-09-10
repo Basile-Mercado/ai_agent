@@ -8,7 +8,7 @@ def get_files_info(working_directory, directory="."):
         if working_directory in os.path.abspath(full_path):
             to_return_str = ""
             for i in list_of_files:
-                to_return_str += f"- {i}: file_size={os.path.getsize(f'{full_path}/{i}')} bytes, is_dir={os.path.isdir(os.path.join(full_path, i))}\n"            
+                to_return_str += f"- {i}: file_size={os.path.getsize(f'{full_path}/{i}')} bytes, is_dir={os.path.isdir(os.path.join(full_path, i))}\n"                       
             return to_return_str
         elif os.path.isdir(directory) == False:
             return f'Error: "{directory}" is not a directory'

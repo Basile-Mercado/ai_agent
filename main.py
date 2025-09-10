@@ -3,6 +3,7 @@ import sys
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from functions.call_function import call_function
 from var import system_prompt
 from functions.function_declaration import *
 
@@ -23,7 +24,8 @@ def main():
     
     if any([arg == '-v' or arg== '--verbose' for arg in args]):
         generate_content(client, messages, verbose=True)
-    generate_content(client, messages)
+    else:
+        generate_content(client, messages)
 
 def generate_content(client, messages, verbose=False):    
     available_functions = types.Tool(
@@ -44,9 +46,13 @@ def generate_content(client, messages, verbose=False):
         print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
     if response.function_calls:
-        for function_call in response.function_calls:
-            print(f"Function call: {function_call.name} with arguments {function_call.args}")
-    print(f"Response: {response.text}")
+        call_result = call_function(response.function_calls[0], verbose)
+        if call_result.parts[0] and verbose:
+            print(f"-> {call_result.parts[0].function_response.response}")
+            pass
+        else:
+            print(f"Function call: {response.function_calls[0].name}{response.function_calls[0].args}")
+            raise Exception("Function call failed or returned no response.")
 
 if __name__ == "__main__":
     main()
